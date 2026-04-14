@@ -7,6 +7,7 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String, unique=True, nullable=False)
     hashed_password = Column(String, nullable=False)
+    kdf_salt = Column(String, nullable=False, server_default="")
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
 
