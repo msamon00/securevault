@@ -1,4 +1,8 @@
+import { useState } from 'react';
+
 export default function EntryCard({ entry, onEdit, onDelete }) {
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <div style={styles.card}>
       <div style={styles.header}>
@@ -19,7 +23,15 @@ export default function EntryCard({ entry, onEdit, onDelete }) {
       </div>
       <div style={styles.field}>
         <span style={styles.label}>Password</span>
-        <span style={styles.value}>••••••••</span>
+        <span style={styles.value}>
+          {showPassword ? entry.password || '—' : '••••••••'}
+        </span>
+        <button
+          style={styles.toggleBtn}
+          onClick={() => setShowPassword(!showPassword)}
+        >
+          {showPassword ? 'Hide' : 'Show'}
+        </button>
       </div>
       {entry.notes && (
         <div style={styles.field}>
@@ -82,6 +94,7 @@ const styles = {
     display: 'flex',
     gap: '1rem',
     marginTop: '0.4rem',
+    alignItems: 'center',
   },
   label: {
     color: '#8b8fa8',
@@ -91,5 +104,15 @@ const styles = {
   value: {
     color: '#c8cad8',
     fontSize: '0.85rem',
+    flex: 1,
+  },
+  toggleBtn: {
+    backgroundColor: '#2a2d3e',
+    color: '#a0a4c0',
+    border: 'none',
+    borderRadius: '4px',
+    padding: '0.2rem 0.5rem',
+    cursor: 'pointer',
+    fontSize: '0.75rem',
   },
 };
